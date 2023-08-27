@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  background-image: url("./images/HeadBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
+.header-icon {
+  background-image: url("./images/wIcon.png");
+  background-repeat: no-repeat;
+  background-size: 40px;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px; /* Add spacing between icon and text */
+}
+
+.header-text {
+  font-size: 24px;
+  color: white;
+}
+
+
+.box-container {
+  display: flex;
+  /* Display boxes in a row */
+  gap: 90px;
+  /* Add space between boxes */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 350px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  background-position: top;
+  border-radius: 10px;
+}
+
+.upper-part {
+  flex: 1;
+  /* background-color: #130d0d; */
+  background-image: url("./images/BoxBg.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  background-position: bottom;
+  border-top-left-radius: 10px;
+  /* Apply border radius to specific corners */
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  /* Align content evenly */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: white;
+  
+}
+
+.city {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+  font-weight: bold;
+}
+
+.temperature {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+
+.lower-part {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  border-bottom-left-radius: 10px;
+  /* Apply border radius to specific corners */
+  border-bottom-right-radius: 10px;
+  font-size: x-small;
+}
+
+.upper-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.upper-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.lower-left,
+.lower-center,
+.lower-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  background-color: #302e2ea7;
+  color: white;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.lower-left {
+   border-bottom-left-radius: 10px; 
+  border-right: 2px solid rgb(40, 39, 38);
+}
+
+.lower-center {
+  border-top: none;
+  border-bottom: none;
+  border-left: 2px solid rgb(40, 39, 38);
+  border-right: 2px solid rgb(40, 39, 38);
+}
+
+.lower-right {
+  border-bottom-right-radius: 10px;
+  border-left: 2px solid rgb(40, 39, 38);
+}
+
+.lower-part div p {
+  display: inline; /* Add this to make <p> elements inline */
+  margin: 0; /* Remove default margin to align text better */
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  background-color: rgb(57, 58, 58);
+  color: rgb(81, 80, 80);
+ 
+ 
+}
+
+
