@@ -1,61 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiLocationArrow1 } from "react-icons/ci";
 import "./styles.css";
 
-const API_KEY = "e5464675f9d481b04c981cb851d15413";
-const CITY_DATA = [
-  {
-    CityCode: "1248991",
-    CityName: "Colombo",
-    Temp: "33.0",
-    Status: "Clouds",
-  },
-  {
-    CityCode: "1850147",
-    CityName: "Tokyo",
-    Temp: "8.6",
-    Status: "Clear",
-  },
-  {
-    CityCode: "2644210",
-    CityName: "Liverpool",
-    Temp: "16.5",
-    Status: "Rain",
-  },
-  {
-    CityCode: "2988507",
-    CityName: "Paris",
-    Temp: "22.4",
-    Status: "Clear",
-  },
-  {
-    CityCode: "2147714",
-    CityName: "Sydney",
-    Temp: "27.3",
-    Status: "Rain",
-  },
-  {
-    CityCode: "4930956",
-    CityName: "Boston",
-    Temp: "4.2",
-    Status: "Mist",
-  },
-  {
-    CityCode: "1796236",
-    CityName: "Shanghai",
-    Temp: "10.1",
-    Status: "Clouds",
-  },
-  {
-    CityCode: "3143244",
-    CityName: "Oslo",
-    Temp: "-3.9",
-    Status: "Clear",
-  },
-];
+import cachedData from "../cities.json";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-//Random Color Generator Function
 function generateRandomColor() {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -71,43 +21,67 @@ const WeatherApp = () => {
 
   const navigate = useNavigate();
 
+  const apiURL = useMemo(() => {
+    return `https://api.openweathermap.org/data/2.5/group?id=${cachedData
+      .map((city) => city.CityCode)
+      .join(",")}&units=metric&appid=${API_KEY}`;
+  }, []); // Empty dependency array to compute the URL only once
+
+  // Function to retrieve weather data from local storage
+  const getCachedWeatherData = () => {
+    const cachedWeatherData = localStorage.getItem("weatherData");
+    if (cachedWeatherData) {
+      return JSON.parse(cachedWeatherData);
+    }
+    return null;
+  };
+
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
     navigate("/aa", { state: { cityData } });
   };
 
   useEffect(() => {
-    async function fetchWeatherData() {
-      try {
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/group?id=${CITY_DATA.map(
-            (city) => city.CityCode
-          ).join(",")}&units=metric&appid=${API_KEY}`
-        );
+    // Check if weather data is available in local storage
+    const cachedWeatherData = getCachedWeatherData();
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch weather data");
+    // If cached data is available, use it and don't make an API request
+    if (cachedWeatherData) {
+      setWeatherData(cachedWeatherData);
+    } else {
+      // Fetch weather data from the API
+      async function fetchWeatherData() {
+        try {
+          const response = await fetch(apiURL);
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch weather data");
+          }
+
+          const data = await response.json();
+          setWeatherData(data.list);
+
+          // Cache the fetched data in local storage
+          localStorage.setItem("weatherData", JSON.stringify(data.list));
+        } catch (error) {
+          console.error(error);
+          // Handle the error state
         }
-
-        const data = await response.json();
-        setWeatherData(data.list);
-      } catch (error) {
-        console.error(error);
-        // Handle the error state
       }
+
+      fetchWeatherData();
     }
+  }, [apiURL]);
 
-    fetchWeatherData();
-  }, []);
-
-  if (CITY_DATA.length === 0 || weatherData.length === 0) {
+  if (cachedData.length === 0 || weatherData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         Loading...
       </div>
     );
   }
-  const randomColors = Array.from({ length: CITY_DATA.length }, () =>
+
+  const randomColors = Array.from({ length: cachedData.length }, () =>
     generateRandomColor()
   );
 
@@ -130,7 +104,7 @@ const WeatherApp = () => {
               style={{ backgroundColor: randomColors[index] }}
             >
               <div className="upper-left">
-                <div className="city">{CITY_DATA[index].CityName}</div>
+                <div className="city">{cachedData[index].CityName}</div>
                 <div className="time mt-4">
                   {new Date(cityData.dt * 1000).toLocaleTimeString([], {
                     hour: "2-digit",
@@ -168,7 +142,6 @@ const WeatherApp = () => {
               </div>
               <div className="lower-center">
                 <div>
-                  {/* <img src={Wind} alt="wind" /> */}
                   <CiLocationArrow1 className="w-8 h-8" />
                 </div>
                 <div>

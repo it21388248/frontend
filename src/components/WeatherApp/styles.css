@@ -34,7 +34,6 @@ body {
   color: white;
 }
 
-
 .box-container {
   display: flex;
   /* Display boxes in a row */
@@ -72,7 +71,6 @@ body {
   display: flex;
   align-items: center;
   color: white;
-  
 }
 
 .city {
@@ -137,7 +135,7 @@ body {
 }
 
 .lower-left {
-   border-bottom-left-radius: 10px; 
+  border-bottom-left-radius: 10px;
   border-right: 2px solid rgb(40, 39, 38);
 }
 
@@ -162,11 +160,53 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   background-color: rgb(57, 58, 58);
   color: rgb(81, 80, 80);
- 
- 
 }
 
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  body {
+    /* Modify styles for smaller screens */
+    background-image: none; /* Remove background image */
+    background-color: #ffffff; /* Change background color */
+  }
 
+  .header {
+    /* Modify header styles */
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+
+  .box-container {
+    /* Modify box container styles */
+    flex-direction: column; /* Stack boxes vertically */
+    gap: 20px; /* Reduce space between boxes */
+  }
+
+  .box {
+    /* Modify box styles */
+    width: 100%; /* Full width */
+    max-width: 350px; /* Limit box width */
+  }
+
+  .upper-part {
+    /* Modify upper part styles */
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
+  }
+
+  .lower-part {
+    /* Modify lower part styles */
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+  }
+
+  .lower-left,
+  .lower-center,
+  .lower-right {
+    /* Modify lower part boxes */
+    border-radius: 0; /* Remove border radius */
+    border-left: none; /* Remove left border */
+    border-right: none; /* Remove right border */
+  }
+}
