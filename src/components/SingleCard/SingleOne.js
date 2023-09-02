@@ -1,16 +1,43 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { predefinedColors } from "../../constants";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSun,
+  faCloud,
+  faWind,
+  faSmog,
+} from "@fortawesome/free-solid-svg-icons";
 import "./single.css";
-
-const color = predefinedColors[2]; // Access the first color
+import Footer from "../footer";
 
 const SingleOne = () => {
   const location = useLocation();
-  const { cityData,color } = location.state;
+  const { cityData, color } = location.state;
+  const navigate = useNavigate();
+
+  // Function to map weather icon code to FontAwesome icon
+  const getWeatherIcon = (iconCode) => {
+    switch (iconCode) {
+      case "01d":
+        return faSun;
+      case "02d":
+      case "02n":
+        return faCloud;
+      case "03d":
+      case "03n":
+      case "04d":
+      case "04n":
+        return faCloud;
+      case "50d":
+      case "50n":
+        return faWind;
+      default:
+        return faSmog;
+    }
+  };
 
   return (
     <div>
@@ -20,30 +47,32 @@ const SingleOne = () => {
       </header>
       <div className="box-containerS">
         <div className="boxS">
-          {/* Upper Part */}
           <div className="upper-partSingle" style={{ backgroundColor: color }}>
-            <div className="arrow-icon">
+            <div className="arrow-icon" onClick={() => navigate(-1)}>
               <BsArrowLeftShort className="w-8 h-8" />
             </div>
             <div className="citySingle">{cityData.name}</div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
-                month: "short", // Display short month name
+                month: "short",
                 day: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
               })}
             </div>
-
             <div className="upper-bottomSingle">
               <div className="upper-left"></div>
               <div className="ss">
                 <div className="upper-rightSingle">
-                  <div className="description">
+                  <FontAwesomeIcon
+                    className="iconS"
+                    icon={getWeatherIcon(cityData.weather[0].icon)}
+                    size="2x"
+                  />
+                  <div className="descriptionS">
                     {cityData.weather[0].description}
                   </div>
                 </div>
-
                 <div className="upper-leftSingle">
                   <div className="temperatureSingle">
                     {Math.round(cityData.main.temp)}°C
@@ -58,16 +87,13 @@ const SingleOne = () => {
               </div>
             </div>
           </div>
-          {/* Lower Part */}
           <div className="lower-part">
             <div className="lower-left ms-0">
               <div>
-                <p className="bold-text">Pressure:</p> {cityData.main.pressure}
-                hPa
+                <p className="bold-text">Pressure:</p> {cityData.main.pressure} hPa
               </div>
               <div>
-                <p className="bold-text ms-0">Humidity:</p>{" "}
-                {cityData.main.humidity}%
+                <p className="bold-text ms-0">Humidity:</p> {cityData.main.humidity}%
               </div>
               <div>
                 <p className="bold-text">Visibility:</p>{" "}
@@ -76,7 +102,6 @@ const SingleOne = () => {
             </div>
             <div className="lower-center">
               <div>
-                {/* <img src={Wind} alt="wind" /> */}
                 <TiLocationArrowOutline className="w-8 h-8" />
               </div>
               <div>
@@ -102,6 +127,7 @@ const SingleOne = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

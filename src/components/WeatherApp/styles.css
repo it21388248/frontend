@@ -11,10 +11,10 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
-.weather-box {
-  position: relative; /* Add relative positioning to the weather box container */
-}
 
+.weather-box {
+  position: relative;
+}
 
 .header {
   display: flex;
@@ -30,7 +30,7 @@ body {
   background-size: 40px;
   width: 40px;
   height: 40px;
-  margin-right: 10px; /* Add spacing between icon and text */
+  margin-right: 10px;
 }
 
 .header-text {
@@ -40,24 +40,25 @@ body {
 
 .box-container {
   display: flex;
-  /* Display boxes in a row */
-  gap: 40px;
-  row-gap: 20px;
-  /* Add space between boxes */
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 40px;
+  row-gap: 20px;
+  /* Add space between boxes */
 }
 
 .box {
-  width: 350px;
+  width: calc(
+    50% - 20px
+  ); /* Set box width to 50% of the container with some spacing */
+  max-width: 350px;
   height: 250px;
   display: flex;
   flex-direction: column;
   background-position: top;
   border-radius: 10px;
 }
-
 
 .upper-part {
   flex: 1;
@@ -72,14 +73,14 @@ body {
   display: flex;
   align-items: center;
   color: white;
-  position: relative; /* Add relative positioning to the upper-part div */
+  position: relative;
 }
 
 .cross {
-  position: absolute; /* Set the cross icon to absolute positioning */
-  top: 10px; /* Adjust the top position to your desired spacing */
-  right: 10px; /* Adjust the right position to your desired spacing */
-  cursor: pointer; /* Add cursor style if needed */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .city {
@@ -101,11 +102,8 @@ body {
   flex-direction: row;
   flex: 1;
   border-bottom-left-radius: 10px;
-
-  /* Apply border radius to specific corners */
   border-bottom-right-radius: 10px;
   font-size: x-small;
-  
 }
 
 .upper-left {
@@ -127,9 +125,7 @@ body {
   flex-wrap: wrap;
   align-items: center;
   font-size: small;
-
 }
-
 
 .lower-left,
 .lower-center,
@@ -140,7 +136,7 @@ body {
   height: 85px;
   flex-direction: column;
   padding: 5px;
-  background-color: #343131a7;
+  background-color: #393737;
   color: white;
 }
 
@@ -169,61 +165,52 @@ body {
 }
 
 .lower-part div p {
-  display: inline; /* Add this to make <p> elements inline */
-  margin: 0; /* Remove default margin to align text better */
+  display: inline;
+  margin: 0;
 }
 
 .footer {
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: rgb(57, 58, 58);
   color: rgb(141, 138, 138);
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   body {
-    /* Modify styles for smaller screens */
     background-image: url("./images/HeadBg.png");
-    background-color: #ffffff; /* Change background color */
+    background-color: #ffffff;
   }
 
   .header {
-    /* Modify header styles */
     margin-top: 10px;
     margin-bottom: 40px;
   }
 
   .box-container {
-    /* Modify box container styles */
-    flex-direction: column; /* Stack boxes vertically */
-    gap: 20px; /* Reduce space between boxes */
+    flex-direction: column;
+    gap: 20px;
   }
 
   .box {
-    /* Modify box styles */
-    width: 100%; /* Full width */
-    max-width: 350px; /* Limit box width */
+    width: 100%;
+    max-width: 480px;
   }
 
   .upper-part {
-    /* Modify upper part styles */
-    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    border-radius: 10px 10px 0 0;
   }
 
   .lower-part {
-    /* Modify lower part styles */
-    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    border-radius: 0 0 10px 10px;
   }
 
   .lower-left,
   .lower-center,
   .lower-right {
-    /* Modify lower part boxes */
-    border-radius: 0; /* Remove border radius */
-    border-left: none; /* Remove left border */
-    border-right: none; /* Remove right border */
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 }

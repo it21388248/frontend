@@ -1,5 +1,3 @@
-
-
 .headerSingle {
   display: flex;
   align-items: center;
@@ -17,6 +15,10 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 100%; /* Set the width to 100% to occupy the entire horizontal space */
+  max-width: 1200px; /* Set a maximum width to control the enlargement */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for spacing and aesthetics */
 }
 
 .boxS {
@@ -28,12 +30,7 @@
   border-radius: 10px;
 }
 
-
-
-
-
 .upper-partSingle {
-  background-image: url("../SingleCard/images/BoxBg.png");
   background-repeat: no-repeat;
   background-size: 100%;
   width: 100%;
@@ -46,8 +43,15 @@
   align-items: center;
   color: white;
   position: relative;
+  padding: 40px;
 }
 
+.iconS {
+  margin-bottom: 10px; /* Add margin below the icon */
+}
+.descriptionS {
+  padding-right: 10px;
+}
 
 .arrow-icon {
   position: absolute;
@@ -62,7 +66,8 @@
 
 .upper-leftSingle {
   padding-left: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 15px;
 }
 
 .citySingle {
@@ -87,6 +92,13 @@
 .small-text {
   font-size: 12px;
   color: white;
+}
+
+.lower-left {
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* Center horizontally */
+  text-align: left; /* Center text within each div */
 }
 
 .corner {
