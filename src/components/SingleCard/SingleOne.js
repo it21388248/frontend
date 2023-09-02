@@ -6,11 +6,11 @@ import { predefinedColors } from "../../constants";
 
 import "./single.css";
 
-const color = predefinedColors[0]; // Access the first color
+const color = predefinedColors[2]; // Access the first color
 
 const SingleOne = () => {
   const location = useLocation();
-  const { cityData } = location.state;
+  const { cityData,color } = location.state;
 
   return (
     <div>

@@ -35,7 +35,7 @@ const WeatherApp = () => {
 
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
-    navigate("/aa", { state: { cityData } });
+    navigate("/aa", { state: { cityData,color: predefinedColors[index] } });
   };
 
   useEffect(() => {
