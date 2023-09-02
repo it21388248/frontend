@@ -2,17 +2,11 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { BsArrowLeftShort } from "react-icons/bs";
+import { predefinedColors } from "../../constants";
 
 import "./single.css";
 
-function generateRandomColor() {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+const color = predefinedColors[0]; // Access the first color
 
 const SingleOne = () => {
   const location = useLocation();
@@ -20,20 +14,17 @@ const SingleOne = () => {
 
   return (
     <div>
-      <header className="header">
+      <header className="headerSingle">
         <div className="header-icon"></div>
         <div className="header-text">Weather App</div>
       </header>
-      <div className="box-container">
-        <div className="box">
+      <div className="box-containerS">
+        <div className="boxS">
           {/* Upper Part */}
-          <div
-            className="upper-partSingle"
-            style={{ backgroundColor: generateRandomColor() }}
-          >
+          <div className="upper-partSingle" style={{ backgroundColor: color }}>
             <div className="arrow-icon">
-                    <BsArrowLeftShort className="w-8 h-8" />
-                  </div>
+              <BsArrowLeftShort className="w-8 h-8" />
+            </div>
             <div className="citySingle">{cityData.name}</div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
@@ -54,7 +45,6 @@ const SingleOne = () => {
                 </div>
 
                 <div className="upper-leftSingle">
-                  
                   <div className="temperatureSingle">
                     {Math.round(cityData.main.temp)}°C
                   </div>

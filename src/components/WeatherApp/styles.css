@@ -186,7 +186,7 @@ body {
 @media (max-width: 768px) {
   body {
     /* Modify styles for smaller screens */
-    background-image: none; /* Remove background image */
+    background-image: url("./images/HeadBg.png");
     background-color: #ffffff; /* Change background color */
   }
 

@@ -2,24 +2,15 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
+import { predefinedColors } from '../../constants';
 
 import "./styles.css";
 import API_URL from "../../APIHelper"; // Adjust the import path as needed
 
 import cachedData from "../cities.json";
 const API_KEY = process.env.REACT_APP_API_KEY;
+const color = predefinedColors[0]; // Access the first color
 
-// Define predefined colors for each city
-const predefinedColors = [
-  "#5ba8f5",
-  "#5e5beb",
-  "#3bd975",
-  "#d9823b",
-  "#c44039",
-  "#68158f",
-  "#838f15",
-  "#c23e5b",
-]; // Add more colors as needed
 
 const WeatherApp = () => {
   const [weatherData, setWeatherData] = useState([]);

@@ -1,3 +1,37 @@
+
+
+.headerSingle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
+.box-containerS {
+  display: flex;
+  /* Display boxes in a row */
+  gap: 40px;
+  row-gap: 20px;
+  /* Add space between boxes */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxS {
+  width: 650px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  background-position: top;
+  border-radius: 10px;
+}
+
+
+
+
+
 .upper-partSingle {
   background-image: url("../SingleCard/images/BoxBg.png");
   background-repeat: no-repeat;
@@ -11,14 +45,15 @@
   justify-content: center;
   align-items: center;
   color: white;
-  position: relative; 
+  position: relative;
 }
+
 
 .arrow-icon {
   position: absolute;
   top: 10px; /* Adjust the top position as needed */
   left: 10px; /* Adjust the left position as needed */
-  cursor: pointer
+  cursor: pointer;
 }
 
 .upper-rightSingle {
@@ -64,7 +99,7 @@
 @media (max-width: 768px) {
   .upper-partSingle {
     /* Modify styles for smaller screens */
-    background-image: none; /* Remove background image */
+    background-image: url("./images/HeadBg.png");
     background-color: #130d0d; /* Change background color */
     text-align: center; /* Center text */
   }
