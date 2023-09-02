@@ -11,6 +11,10 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+.weather-box {
+  position: relative; /* Add relative positioning to the weather box container */
+}
+
 
 .header {
   display: flex;
@@ -37,7 +41,8 @@ body {
 .box-container {
   display: flex;
   /* Display boxes in a row */
-  gap: 90px;
+  gap: 40px;
+  row-gap: 20px;
   /* Add space between boxes */
   flex-wrap: wrap;
   justify-content: center;
@@ -53,24 +58,28 @@ body {
   border-radius: 10px;
 }
 
+
 .upper-part {
   flex: 1;
-  /* background-color: #130d0d; */
   background-image: url("./images/BoxBg.png");
   background-repeat: no-repeat;
   background-size: 100%;
-  width: 100%;
   background-position: bottom;
+  width: 100%;
+  padding: 25px;
   border-top-left-radius: 10px;
-  /* Apply border radius to specific corners */
   border-top-right-radius: 10px;
-  display: flex;
-  justify-content: space-evenly;
-  /* Align content evenly */
-  flex: 1;
   display: flex;
   align-items: center;
   color: white;
+  position: relative; /* Add relative positioning to the upper-part div */
+}
+
+.cross {
+  position: absolute; /* Set the cross icon to absolute positioning */
+  top: 10px; /* Adjust the top position to your desired spacing */
+  right: 10px; /* Adjust the right position to your desired spacing */
+  cursor: pointer; /* Add cursor style if needed */
 }
 
 .city {
@@ -92,9 +101,11 @@ body {
   flex-direction: row;
   flex: 1;
   border-bottom-left-radius: 10px;
+
   /* Apply border radius to specific corners */
   border-bottom-right-radius: 10px;
   font-size: x-small;
+  
 }
 
 .upper-left {
@@ -115,7 +126,10 @@ body {
   align-content: center;
   flex-wrap: wrap;
   align-items: center;
+  font-size: small;
+
 }
+
 
 .lower-left,
 .lower-center,
@@ -123,10 +137,10 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  height: 85px;
   flex-direction: column;
   padding: 5px;
-  background-color: #302e2ea7;
+  background-color: #343131a7;
   color: white;
 }
 
@@ -136,19 +150,22 @@ body {
 
 .lower-left {
   border-bottom-left-radius: 10px;
-  border-right: 2px solid rgb(40, 39, 38);
+  padding-left: 20px;
+  align-items: left;
 }
 
 .lower-center {
   border-top: none;
   border-bottom: none;
-  border-left: 2px solid rgb(40, 39, 38);
-  border-right: 2px solid rgb(40, 39, 38);
+  border-left: 1px solid rgb(120, 119, 119);
+  align-items: center;
 }
 
 .lower-right {
   border-bottom-right-radius: 10px;
-  border-left: 2px solid rgb(40, 39, 38);
+  border-left: 1px solid rgb(120, 119, 119);
+  align-items: center;
+  padding-right: 20px;
 }
 
 .lower-part div p {
@@ -162,7 +179,7 @@ body {
   align-items: center;
 
   background-color: rgb(57, 58, 58);
-  color: rgb(81, 80, 80);
+  color: rgb(141, 138, 138);
 }
 
 /* Media query for smaller screens */

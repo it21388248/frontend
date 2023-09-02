@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { CiLocationArrow1 } from "react-icons/ci";
+import { TiLocationArrowOutline } from "react-icons/ti";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 import "./single.css";
 
@@ -23,13 +24,16 @@ const SingleOne = () => {
         <div className="header-icon"></div>
         <div className="header-text">Weather App</div>
       </header>
-      <div className="box-container" >
+      <div className="box-container">
         <div className="box">
           {/* Upper Part */}
           <div
             className="upper-partSingle"
             style={{ backgroundColor: generateRandomColor() }}
           >
+            <div className="arrow-icon">
+                    <BsArrowLeftShort className="w-8 h-8" />
+                  </div>
             <div className="citySingle">{cityData.name}</div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
@@ -40,16 +44,17 @@ const SingleOne = () => {
               })}
             </div>
 
-            <div className="upper-bottom">
+            <div className="upper-bottomSingle">
               <div className="upper-left"></div>
               <div className="ss">
-                <div className="upper-right">
+                <div className="upper-rightSingle">
                   <div className="description">
                     {cityData.weather[0].description}
                   </div>
                 </div>
 
-                <div className="upper-left">
+                <div className="upper-leftSingle">
+                  
                   <div className="temperatureSingle">
                     {Math.round(cityData.main.temp)}°C
                   </div>
@@ -82,7 +87,7 @@ const SingleOne = () => {
             <div className="lower-center">
               <div>
                 {/* <img src={Wind} alt="wind" /> */}
-                <CiLocationArrow1 className="w-8 h-8" />
+                <TiLocationArrowOutline className="w-8 h-8" />
               </div>
               <div>
                 {cityData.wind.speed}m/s {cityData.wind.deg} Degree
@@ -107,7 +112,6 @@ const SingleOne = () => {
           </div>
         </div>
       </div>
-     
     </div>
   );
 };

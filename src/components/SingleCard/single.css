@@ -11,6 +11,23 @@
   justify-content: center;
   align-items: center;
   color: white;
+  position: relative; 
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 10px; /* Adjust the left position as needed */
+  cursor: pointer
+}
+
+.upper-rightSingle {
+  padding: 20px;
+}
+
+.upper-leftSingle {
+  padding-left: 20px;
+  padding-bottom: 20px;
 }
 
 .citySingle {
@@ -37,6 +54,12 @@
   color: white;
 }
 
+.corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* Other styles for your corner component */
+}
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   .upper-partSingle {

@@ -1,19 +1,25 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { CiLocationArrow1 } from "react-icons/ci";
+import { TiLocationArrowOutline } from "react-icons/ti";
+import { RxCross2 } from "react-icons/rx";
+
 import "./styles.css";
+import API_URL from "../../APIHelper"; // Adjust the import path as needed
 
 import cachedData from "../cities.json";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-function generateRandomColor() {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+// Define predefined colors for each city
+const predefinedColors = [
+  "#5ba8f5",
+  "#5e5beb",
+  "#3bd975",
+  "#d9823b",
+  "#c44039",
+  "#68158f",
+  "#838f15",
+  "#c23e5b",
+]; // Add more colors as needed
 
 const WeatherApp = () => {
   const [weatherData, setWeatherData] = useState([]);
@@ -22,10 +28,10 @@ const WeatherApp = () => {
   const navigate = useNavigate();
 
   const apiURL = useMemo(() => {
-    return `https://api.openweathermap.org/data/2.5/group?id=${cachedData
+    return `${API_URL}/group?id=${cachedData
       .map((city) => city.CityCode)
       .join(",")}&units=metric&appid=${API_KEY}`;
-  }, []); // Empty dependency array to compute the URL only once
+  }, []);
 
   // Function to retrieve weather data from local storage
   const getCachedWeatherData = () => {
@@ -81,10 +87,6 @@ const WeatherApp = () => {
     );
   }
 
-  const randomColors = Array.from({ length: cachedData.length }, () =>
-    generateRandomColor()
-  );
-
   return (
     <div>
       <header className="header">
@@ -99,31 +101,38 @@ const WeatherApp = () => {
             onClick={() => handleCityBoxClick(index, cityData)}
           >
             {/* Upper Part */}
-            <div
-              className="upper-part"
-              style={{ backgroundColor: randomColors[index] }}
-            >
-              <div className="upper-left">
-                <div className="city">{cachedData[index].CityName}</div>
-                <div className="time mt-4">
-                  {new Date(cityData.dt * 1000).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+            <div className="weather-box">
+              <div
+                className="upper-part"
+                style={{ backgroundColor: predefinedColors[index] }}
+              >
+                <div className="cross">
+                  <RxCross2 className="w-8 h-8" />
                 </div>
-
-                <div className="description">
-                  {cityData.weather[0].description}
+                <div className="upper-left">
+                  <div className="city">{cachedData[index].CityName}</div>
+                  <div className="time mt-0">
+                    {new Date(cityData.dt * 1000).toLocaleString([], {
+                      month: "short", // Display short month name
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
+                  <div className="description">
+                    {cityData.weather[0].description}
+                  </div>
                 </div>
-              </div>
-              <div className="upper-right">
-                <div className="temperature">
-                  {Math.round(cityData.main.temp)}°C
+                <div className="upper-right">
+                  <div className="temperature">
+                    {Math.round(cityData.main.temp)}°C
+                  </div>
+                  <div>Temp Min: {Math.round(cityData.main.temp_min)}°C</div>
+                  <div>Temp Max: {Math.round(cityData.main.temp_max)}°C</div>
                 </div>
-                <div>Temp Min: {Math.round(cityData.main.temp_min)}°C</div>
-                <div>Temp Max: {Math.round(cityData.main.temp_max)}°C</div>
               </div>
             </div>
+
             {/* Lower Part */}
             <div className="lower-part">
               <div className="lower-left ms-0">
@@ -140,9 +149,10 @@ const WeatherApp = () => {
                   {(cityData.visibility / 1000).toFixed(1)} km
                 </div>
               </div>
+
               <div className="lower-center">
                 <div>
-                  <CiLocationArrow1 className="w-8 h-8" />
+                  <TiLocationArrowOutline className="w-8 h-8" />
                 </div>
                 <div>
                   {cityData.wind.speed}m/s {cityData.wind.deg} Degree
