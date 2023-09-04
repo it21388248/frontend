@@ -10,10 +10,10 @@
 
 .box-containerS {
   display: flex;
-  /* Display boxes in a row */
+ 
   gap: 40px;
   row-gap: 20px;
-  /* Add space between boxes */
+  
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@
 }
 
 .iconS {
-  margin-bottom: 10px; /* Add margin below the icon */
+  margin-bottom: 10px; 
 }
 .descriptionS {
   padding-right: 10px;
@@ -57,8 +57,8 @@
 
 .arrow-icon {
   position: absolute;
-  top: 10px; /* Adjust the top position as needed */
-  left: 10px; /* Adjust the left position as needed */
+  top: 10px; 
+  left: 10px; 
   cursor: pointer;
 }
 
@@ -99,43 +99,43 @@
 .lower-left {
   display: flex;
   flex-direction: column;
-  align-items: left; /* Center horizontally */
-  text-align: left; /* Center text within each div */
+  align-items: left; 
+  text-align: left; 
 }
 
 .corner {
   position: absolute;
   top: 0;
   right: 0;
-  /* Other styles for your corner component */
+ 
 }
-/* Media query for smaller screens */
+
 @media (max-width: 768px) {
   .upper-partSingle {
-    /* Modify styles for smaller screens */
+   
     background-image: url("./images/HeadBg.png");
-    background-color: #130d0d; /* Change background color */
-    text-align: center; /* Center text */
+    background-color: #130d0d; 
+    text-align: center; 
   }
 
   .citySingle {
-    /* Modify city text styles */
-    margin-bottom: 10px; /* Add margin for spacing */
+    
+    margin-bottom: 10px; 
   }
 
   .temperatureSingle {
-    /* Modify temperature text styles */
-    margin-bottom: 10px; /* Add margin for spacing */
+  
+    margin-bottom: 10px; 
   }
 
   .ss {
-    /* Modify styles for the .ss element */
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center elements */
+
+    flex-direction: column;
+    align-items: center; 
   }
 
   .small-text {
-    /* Modify small text styles */
-    font-size: 10px; /* Reduce font size */
+    
+    font-size: 10px; 
   }
 }

@@ -48,13 +48,13 @@ body {
   row-gap: 20px;
   margin-left: 60px;
   margin-right: 60px;
-  /* Add space between boxes */
+  
 }
 
 .box {
   width: calc(
     50% - 20px
-  ); /* Set box width to 50% of the container with some spacing */
+  ); 
  width: 350px;
  height: 250px; 
 

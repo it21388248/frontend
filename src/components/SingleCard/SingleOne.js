@@ -21,7 +21,10 @@ const SingleOne = () => {
       </header>
       <section className="box-containerS">
         <div className="boxS">
-          <div className="upper-partSingle" style={{ backgroundColor: color }}>
+          <div
+            className="upper-partSingle"
+            style={{ backgroundColor: color }}
+          >
             <div className="arrow-icon" onClick={() => navigate(-1)}>
               <BsArrowLeftShort className="w-8 h-8" />
             </div>
@@ -30,10 +33,10 @@ const SingleOne = () => {
             </div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
               })}
             </div>
             <div className="upper-bottomSingle">
@@ -72,7 +75,7 @@ const SingleOne = () => {
                 <p className="bold-text ms-0">Humidity:</p> {cityData.main.humidity}%
               </div>
               <div>
-                <p className="bold-text">Visibility:</p>{' '}
+                <p className="bold-text">Visibility:</p>{" "}
                 {(cityData.visibility / 1000).toFixed(1)} km
               </div>
             </div>
@@ -88,15 +91,15 @@ const SingleOne = () => {
               <div>
                 <p className="bold-text">Sunrise: </p>
                 {new Date(cityData.sys.sunrise * 1000).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
               </div>
               <div>
                 <p className="bold-text">Sunset: </p>
                 {new Date(cityData.sys.sunset * 1000).toLocaleTimeString([], {
-                  hour: '2-digit',
-                  minute: '2-digit',
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
               </div>
             </div>
