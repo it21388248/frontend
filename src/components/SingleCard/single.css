@@ -110,32 +110,3 @@
  
 }
 
-@media (max-width: 768px) {
-  .upper-partSingle {
-   
-    background-image: url("./images/HeadBg.png");
-    background-color: #130d0d; 
-    text-align: center; 
-  }
-
-  .citySingle {
-    
-    margin-bottom: 10px; 
-  }
-
-  .temperatureSingle {
-  
-    margin-bottom: 10px; 
-  }
-
-  .ss {
-
-    flex-direction: column;
-    align-items: center; 
-  }
-
-  .small-text {
-    
-    font-size: 10px; 
-  }
-}
