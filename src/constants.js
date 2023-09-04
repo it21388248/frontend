@@ -1,4 +1,9 @@
-// constants.js
+import {
+  faSun,
+  faCloud,
+  faWind,
+  faSmog,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const API_KEY = "e5464675f9d481b04c981cb851d15413";
 
@@ -53,9 +58,8 @@ export const CITY_DATA = [
   },
 ];
 
-
 // Define predefined colors for each city
-export  const predefinedColors = [
+export const predefinedColors = [
   "#5ba8f5",
   "#5e5beb",
   "#3bd975",
@@ -65,3 +69,21 @@ export  const predefinedColors = [
   "#838f15",
   "#c23e5b",
 ]; // Add more colors as needed
+
+export const weatherIcons = {
+  "01d": faSun,
+  "02d": faCloud,
+  "02n": faCloud,
+  "03d": faCloud,
+  "03n": faCloud,
+  "04d": faCloud,
+  "04n": faCloud,
+  "50d": faWind,
+  "50n": faWind,
+};
+
+export const defaultWeatherIcon = faSmog;
+
+export const getWeatherIcon = (iconCode) => {
+  return weatherIcons[iconCode] || defaultWeatherIcon;
+};

@@ -213,4 +213,15 @@ body {
     border-left: none;
     border-right: none;
   }
+
+  .weather-iconM{
+
+    padding: 10px;
+  }
+
+  .AddCity {
+    text-align: center; /* Center-align the content within the div */
+    margin-top: 20px; /* Add some margin at the top */
+  }
+  
 }

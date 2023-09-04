@@ -3,13 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { predefinedColors } from "../../constants";
+import { getWeatherIcon } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSun,
-  faCloud,
-  faWind,
-  faSmog,
-} from "@fortawesome/free-solid-svg-icons";
 import "./single.css";
 import Footer from "../footer";
 
@@ -18,26 +13,6 @@ const SingleOne = () => {
   const { cityData, color } = location.state;
   const navigate = useNavigate();
 
-  // Function to map weather icon code to FontAwesome icon
-  const getWeatherIcon = (iconCode) => {
-    switch (iconCode) {
-      case "01d":
-        return faSun;
-      case "02d":
-      case "02n":
-        return faCloud;
-      case "03d":
-      case "03n":
-      case "04d":
-      case "04n":
-        return faCloud;
-      case "50d":
-      case "50n":
-        return faWind;
-      default:
-        return faSmog;
-    }
-  };
 
   return (
     <div>
@@ -51,7 +26,7 @@ const SingleOne = () => {
             <div className="arrow-icon" onClick={() => navigate(-1)}>
               <BsArrowLeftShort className="w-8 h-8" />
             </div>
-            <div className="citySingle">{cityData.name}</div>
+            <div className="citySingle">{cityData.name}, {cityData.sys.country}</div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
                 month: "short",
@@ -90,10 +65,12 @@ const SingleOne = () => {
           <div className="lower-part">
             <div className="lower-left ms-0">
               <div>
-                <p className="bold-text">Pressure:</p> {cityData.main.pressure} hPa
+                <p className="bold-text">Pressure:</p> {cityData.main.pressure}{" "}
+                hPa
               </div>
               <div>
-                <p className="bold-text ms-0">Humidity:</p> {cityData.main.humidity}%
+                <p className="bold-text ms-0">Humidity:</p>{" "}
+                {cityData.main.humidity}%
               </div>
               <div>
                 <p className="bold-text">Visibility:</p>{" "}
