@@ -68,8 +68,9 @@ export const predefinedColors = [
   "#68158f",
   "#838f15",
   "#c23e5b",
-]; // Add more colors as needed
+]; 
 
+// Define predefined weather icons for each city
 export const weatherIcons = {
   "01d": faSun,
   "02d": faCloud,

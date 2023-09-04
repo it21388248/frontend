@@ -6,6 +6,8 @@
   margin-bottom: 70px;
 }
 
+
+
 .box-containerS {
   display: flex;
   /* Display boxes in a row */
@@ -15,10 +17,10 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Set the width to 100% to occupy the entire horizontal space */
-  max-width: 1200px; /* Set a maximum width to control the enlargement */
-  margin: 0 auto; /* Center the container horizontally */
-  padding: 20px; /* Add padding for spacing and aesthetics */
+  width: 100%; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
 }
 
 .boxS {

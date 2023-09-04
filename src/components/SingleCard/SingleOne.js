@@ -13,26 +13,27 @@ const SingleOne = () => {
   const { cityData, color } = location.state;
   const navigate = useNavigate();
 
-
   return (
-    <div>
+    <div className="container">
       <header className="headerSingle">
         <div className="header-icon"></div>
         <div className="header-text">Weather App</div>
       </header>
-      <div className="box-containerS">
+      <section className="box-containerS">
         <div className="boxS">
           <div className="upper-partSingle" style={{ backgroundColor: color }}>
             <div className="arrow-icon" onClick={() => navigate(-1)}>
               <BsArrowLeftShort className="w-8 h-8" />
             </div>
-            <div className="citySingle">{cityData.name}, {cityData.sys.country}</div>
+            <div className="citySingle">
+              {cityData.name}, {cityData.sys.country}
+            </div>
             <div className="time mt-0">
               {new Date(cityData.dt * 1000).toLocaleString([], {
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
               })}
             </div>
             <div className="upper-bottomSingle">
@@ -65,15 +66,13 @@ const SingleOne = () => {
           <div className="lower-part">
             <div className="lower-left ms-0">
               <div>
-                <p className="bold-text">Pressure:</p> {cityData.main.pressure}{" "}
-                hPa
+                <p className="bold-text">Pressure:</p> {cityData.main.pressure} hPa
               </div>
               <div>
-                <p className="bold-text ms-0">Humidity:</p>{" "}
-                {cityData.main.humidity}%
+                <p className="bold-text ms-0">Humidity:</p> {cityData.main.humidity}%
               </div>
               <div>
-                <p className="bold-text">Visibility:</p>{" "}
+                <p className="bold-text">Visibility:</p>{' '}
                 {(cityData.visibility / 1000).toFixed(1)} km
               </div>
             </div>
@@ -89,22 +88,24 @@ const SingleOne = () => {
               <div>
                 <p className="bold-text">Sunrise: </p>
                 {new Date(cityData.sys.sunrise * 1000).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
+                  hour: '2-digit',
+                  minute: '2-digit',
                 })}
               </div>
               <div>
                 <p className="bold-text">Sunset: </p>
                 {new Date(cityData.sys.sunset * 1000).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
+                  hour: '2-digit',
+                  minute: '2-digit',
                 })}
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Footer />
+      </section>
+      <footer className="footer w-full mt-8">
+        <Footer />
+      </footer>
     </div>
   );
 };

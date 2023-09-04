@@ -10,7 +10,7 @@ import Footer from "../footer";
 import { getWeatherIcon } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = process.env.WEATHER_APP_API_KEY;
 
 const WeatherApp = () => {
   const [weatherData, setWeatherData] = useState([]);
@@ -31,6 +31,7 @@ const WeatherApp = () => {
         // Use cached data if it's less than 5 minutes old
         setWeatherData(cachedData.data.list);
       } else {
+        //making API req
         const response = await fetch(apiURL);
 
         if (!response.ok) {
@@ -61,6 +62,7 @@ const WeatherApp = () => {
   };
 
   useEffect(() => {
+    //calls the fetchWeatherData function
     fetchWeatherData();
   }, [apiURL]);
 
@@ -83,23 +85,33 @@ const WeatherApp = () => {
         <div className="header-icon"></div>
         <div className="header-text">Weather App</div>
       </header>
-      <div className="AddCity">
-        <input type="text" id="myInput" placeholder="Enter text here" />
-        <input type="button" value="Submit" onClick={submitForm} />
+      <div className="AddCity flex justify-center pb-5">
+        <input
+          type="text"
+          className=" h-8 bg-gray-800 rounded-l-sm p-2"
+          id="myInput"
+          placeholder="Enter a city"
+        />
+        <input
+          type="button"
+          className=" bg-purple-700 b-2 w-24 h-8 rounded-md text-white font-bold"
+          value="Add City"
+          onClick={submitForm}
+        />
       </div>
 
-      <div className="box-container">
+      <div className="box-container  ">
         {weatherData.map(
           (cityData, index) =>
             // Check if the box should be hidden
             !hiddenBoxes.includes(index) && (
               <div
-                className="box"
+                className="box "
                 key={index}
                 onClick={() => handleCityBoxClick(index, cityData)}
               >
                 {/* Upper Part */}
-                <div className="weather-box">
+                <div className="weather-box ">
                   <div
                     className="upper-part"
                     style={{ backgroundColor: predefinedColors[index] }}
@@ -114,8 +126,10 @@ const WeatherApp = () => {
                       />
                     </div>
                     <div className="upper-left">
-                      <div className="city">{Data[index].CityName}, {cityData.sys.country}</div>
-                      <div className="time mt-0">
+                      <div className="city">
+                        {Data[index].CityName}, {cityData.sys.country}
+                      </div>
+                      <div className="time mt-0 text-sm">
                         {new Date(cityData.dt * 1000).toLocaleString([], {
                           month: "short",
                           day: "numeric",
@@ -123,12 +137,12 @@ const WeatherApp = () => {
                           minute: "2-digit",
                         })}
                       </div>
-                      <div className="description">
-                        {cityData.weather[0].description}
+                      <div className="description ml-2">
                         <FontAwesomeIcon
-                          className="weather-iconM"
+                          className="weather-iconM mr-2 mt-3"
                           icon={getWeatherIcon(cityData.weather[0].icon)}
                         />
+                        {cityData.weather[0].description}
                       </div>
                     </div>
                     <div className="upper-right">
@@ -188,7 +202,9 @@ const WeatherApp = () => {
             )
         )}
       </div>
-      <Footer />
+      <div className=" mt-10">
+        <Footer />
+      </div>
     </div>
   );
 };
