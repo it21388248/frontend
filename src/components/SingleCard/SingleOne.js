@@ -2,11 +2,11 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TiLocationArrowOutline } from "react-icons/ti";
 import { BsArrowLeftShort } from "react-icons/bs";
-import { predefinedColors } from "../../constants";
 import { getWeatherIcon } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./single.css";
 import Footer from "../footer";
+import Header from "../Header";
 
 const SingleOne = () => {
   const location = useLocation();
@@ -15,10 +15,7 @@ const SingleOne = () => {
 
   return (
     <div className="container">
-      <header className="headerSingle">
-        <div className="header-icon"></div>
-        <div className="header-text">Weather App</div>
-      </header>
+     <Header/>
       <section className="box-containerS">
         <div className="boxS">
           <div

@@ -6,21 +6,19 @@
   margin-bottom: 70px;
 }
 
-
-
 .box-containerS {
   display: flex;
- 
+
   gap: 40px;
   row-gap: 20px;
-  
+
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%; 
-  max-width: 1200px; 
-  margin: 0 auto; 
-  padding: 20px; 
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .boxS {
@@ -49,7 +47,7 @@
 }
 
 .iconS {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 .descriptionS {
   padding-right: 10px;
@@ -57,8 +55,8 @@
 
 .arrow-icon {
   position: absolute;
-  top: 10px; 
-  left: 10px; 
+  top: 10px;
+  left: 10px;
   cursor: pointer;
 }
 
@@ -99,14 +97,40 @@
 .lower-left {
   display: flex;
   flex-direction: column;
-  align-items: left; 
-  text-align: left; 
+  align-items: left;
+  text-align: left;
 }
 
 .corner {
   position: absolute;
   top: 0;
   right: 0;
- 
 }
 
+/* media quiries */
+/* For small screens  */
+@media screen and (max-width: 1080px) {
+  .boxS {
+    width: 100%;
+    height: auto;
+  }
+
+  .upper-partSingle {
+    padding: 20px;
+  }
+
+  .upper-rightSingle {
+    padding: 10px;
+  }
+
+  .upper-leftSingle {
+    padding: 10px;
+  }
+}
+
+/* For tablets and larger screens */
+@media screen and (min-width: px) {
+  .boxS {
+    width: 50%; 
+  }
+}

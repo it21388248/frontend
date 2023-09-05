@@ -183,12 +183,8 @@ body {
  
 }
 
+/* media quiries */
 @media (max-width: 1080px) {
-  body {
-    background-image: url("./images/HeadBg.png");
-    background-color: #ffffff;
-  }
-
   .header {
     margin-top: 10px;
     margin-bottom: 40px;

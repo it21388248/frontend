@@ -5,19 +5,23 @@ import { RxCross2 } from "react-icons/rx";
 import { predefinedColors } from "../../constants";
 import "./styles.css";
 import API_URL from "../../APIHelper";
-import Data from "../cities.json";
+import Data from "../../cities.json";
 import Footer from "../footer";
+import Header from "../Header";
 import { getWeatherIcon } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const API_KEY = process.env.WEATHER_APP_API_KEY;
+const API_KEY =
+  process.env.WEATHER_APP_API_KEY || "e5464675f9d481b04c981cb851d15413";
 
 const WeatherApp = () => {
+  // State variables
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCityIndex, setSelectedCityIndex] = useState(null);
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const navigate = useNavigate();
 
+  //remove duplicate api requests
   const apiURL = useMemo(() => {
     return `${API_URL}/group?id=${Data.map((city) => city.CityCode).join(
       ","
@@ -27,11 +31,11 @@ const WeatherApp = () => {
   const fetchWeatherData = async () => {
     try {
       const cachedData = JSON.parse(localStorage.getItem("weatherData"));
-      if (cachedData && Date.now() - cachedData.timestamp < Date.now()) {
+      if (cachedData && Date.now() - cachedData.timestamp < 5 * 60 * 1000) {
+        console.log(Date.now());
         // Use cached data if it's less than 5 minutes old
         setWeatherData(cachedData.data.list);
       } else {
-        //making API req
         const response = await fetch(apiURL);
 
         if (!response.ok) {
@@ -47,22 +51,26 @@ const WeatherApp = () => {
         setWeatherData(data.list);
       }
     } catch (error) {
-      console.error(error);
       // Handle the error state
+      console.error(error);
     }
   };
 
+  // Function to handle a click on a city box
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
     navigate("/aa", { state: { cityData, color: predefinedColors[index] } });
   };
 
+  // Function to handle click on the remove box (to hide a city box)
   const handleRemoveBoxClick = (index) => {
     setHiddenBoxes((prevHiddenBoxes) => [...prevHiddenBoxes, index]);
   };
 
   useEffect(() => {
     //calls the fetchWeatherData function
+    console.log(apiURL);
+    console.log(API_KEY);
     fetchWeatherData();
   }, [apiURL]);
 
@@ -71,6 +79,7 @@ const WeatherApp = () => {
     setHiddenBoxes([]);
   }, []);
 
+  // Loading state if data is not yet available
   if (Data.length === 0 || weatherData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -81,10 +90,7 @@ const WeatherApp = () => {
 
   return (
     <div>
-      <header className="header">
-        <div className="header-icon"></div>
-        <div className="header-text">Weather App</div>
-      </header>
+      <Header />
       <div className="AddCity flex justify-center pb-5">
         <input
           type="text"
@@ -210,7 +216,7 @@ const WeatherApp = () => {
 };
 
 function submitForm() {
-  // Add your form submission logic here
+  //form submission logic,if needed
 }
 
 export default WeatherApp;
