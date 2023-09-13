@@ -14,7 +14,6 @@ body {
 
 .weather-box {
   position: relative;
-  
 }
 
 .header {
@@ -49,19 +48,15 @@ body {
   margin-left: 60px;
   margin-right: 60px;
   height: max-content;
-  
 }
 
 .box {
-  width: calc(
-    50% - 20px
-  ); 
- width: 350px;
- height: 250px; 
-
+  width: calc(50% - 20px);
+  width: 350px;
+  height: 250px;
 
   display: flex;
- flex-direction: column;
+  flex-direction: column;
   background-position: top;
   border-radius: 10px;
 }
@@ -91,7 +86,7 @@ body {
 
 .city {
   font-size: 1.2rem;
-  
+
   color: #f0f0f0;
   font-weight: bold;
 }
@@ -181,7 +176,6 @@ body {
   align-items: center;
   background-color: rgb(57, 58, 58);
   color: rgb(141, 138, 138);
- 
 }
 
 /* media quiries */

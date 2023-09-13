@@ -15,7 +15,7 @@ const SingleOne = () => {
 
   return (
     <>
-      <div style={{position:"relative"}}>
+      <div style={{ position: "relative" }}>
         <div className="containerS">
           <Header />
 
@@ -111,24 +111,11 @@ const SingleOne = () => {
             </div>
           </div>
 
-          <div className="footer w-full mt-8"></div>
+          <div className="footer w-full mt-8">
+       
+          </div>
         </div>
-        {/* <Footer /> */}
-        <footer
-        className="h-11 bg-gray-800 text-white ml-0"
-        style={{
-          position: "fixed",
-          bottom: 0,
-          justifyContent: "center",
-          backgroundColor: "pink",
-          width: "100%",
-        }}
-      >
-        <p>This is my footer</p>
-      </footer>
       </div>
-
-      
     </>
   );
 };

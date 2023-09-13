@@ -8,7 +8,12 @@ import API_URL from "../../APIHelper";
 import Data from "../../cities.json";
 import Footer from "../footer";
 import Header from "../Header";
-import { getWeatherIcon, REFRESH_INTERVAL, METERS_TO_KILOMETERS,MILLISECONDS_TO_SECONDS} from "../../constants";
+import {
+  getWeatherIcon,
+  REFRESH_INTERVAL,
+  METERS_TO_KILOMETERS,
+  MILLISECONDS_TO_SECONDS,
+} from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const API_KEY =
@@ -18,7 +23,7 @@ const WeatherApp = () => {
   // State variables
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCityIndex, setSelectedCityIndex] = useState(null);
-  const [error, setError] = useState(null); // New error state
+  const [error, setError] = useState(null);
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const navigate = useNavigate();
 
@@ -37,7 +42,6 @@ const WeatherApp = () => {
         const response = await fetch(apiURL);
 
         if (!response.ok) {
-          // throw new Error("Failed to fetch weather data");
           throw new Error(
             `Failed to fetch weather data. Status: ${response.status}`
           );
@@ -52,7 +56,6 @@ const WeatherApp = () => {
         setWeatherData(data.list);
       }
     } catch (error) {
-      // Handle the error state
       console.error(error);
       setError(
         "An error occurred while fetching weather data. Please try again later."
@@ -79,7 +82,7 @@ const WeatherApp = () => {
     } else {
       fetchWeatherData();
     }
-  }, [apiURL]); // Depend on apiURL to trigger API requests when it changes
+  }, [apiURL]);
 
   useEffect(() => {
     // Clear hidden boxes when the page is refreshed
@@ -184,7 +187,10 @@ const WeatherApp = () => {
                       </div>
                       <div>
                         <p className="bold-text">Visibility:</p>{" "}
-                        {(cityData.visibility *  METERS_TO_KILOMETERS).toFixed(1)} km
+                        {(cityData.visibility * METERS_TO_KILOMETERS).toFixed(
+                          1
+                        )}{" "}
+                        km
                       </div>
                     </div>
 
