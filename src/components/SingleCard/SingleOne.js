@@ -14,17 +14,22 @@ const SingleOne = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container">
+    <>
+    
+<div>  <div className="containerS">
      <Header/>
-      <section className="box-containerS">
+      
         <div className="boxS">
           <div
             className="upper-partSingle"
             style={{ backgroundColor: color }}
           >
-            <div className="arrow-icon" onClick={() => navigate(-1)}>
+
+<div className="arrow-icon" onClick={() => navigate(-1)}>
               <BsArrowLeftShort className="w-8 h-8" />
             </div>
+
+            
             <div className="citySingle">
               {cityData.name}, {cityData.sys.country}
             </div>
@@ -102,11 +107,16 @@ const SingleOne = () => {
             </div>
           </div>
         </div>
-      </section>
-      <div className="footer w-full mt-8">
+       
+
+     <div className="footer w-full mt-8">
         <Footer />
-      </div>
+      </div> 
     </div>
+</div>
+   
+
+</>
   );
 };
 

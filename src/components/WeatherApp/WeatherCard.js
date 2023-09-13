@@ -21,12 +21,10 @@ const WeatherApp = () => {
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const navigate = useNavigate();
 
-  //remove duplicate api requests
-  const apiURL = useMemo(() => {
-    return `${API_URL}/group?id=${Data.map((city) => city.CityCode).join(
-      ","
-    )}&units=metric&appid=${API_KEY}`;
-  }, []);
+
+  const apiURL = `${API_URL}/group?id=${Data.map((city) => city.CityCode).join(
+    ","
+  )}&units=metric&appid=${API_KEY}`;
 
   const fetchWeatherData = async () => {
     try {
@@ -67,12 +65,16 @@ const WeatherApp = () => {
     setHiddenBoxes((prevHiddenBoxes) => [...prevHiddenBoxes, index]);
   };
 
+ 
   useEffect(() => {
-    //calls the fetchWeatherData function
-    console.log(apiURL);
-    console.log(API_KEY);
-    fetchWeatherData();
-  }, [apiURL]);
+    // Remove duplicate API requests by checking cached data
+    const cachedData = JSON.parse(localStorage.getItem("weatherData"));
+    if (cachedData && Date.now() - cachedData.timestamp < 5 * 60 * 1000) {
+      setWeatherData(cachedData.data.list);
+    } else {
+      fetchWeatherData();
+    }
+  }, [apiURL]); // Depend on apiURL to trigger API requests when it changes
 
   useEffect(() => {
     // Clear hidden boxes when the page is refreshed
@@ -89,12 +91,13 @@ const WeatherApp = () => {
   }
 
   return (
+    <>  
     <div>
       <Header />
       <div className="AddCity flex justify-center pb-5">
         <input
           type="text"
-          className=" h-8 bg-gray-800 rounded-l-sm p-2"
+          className=" h-8 bg-gray-800 rounded-l-sm p-2 text-white"
           id="myInput"
           placeholder="Enter a city"
         />
@@ -208,10 +211,12 @@ const WeatherApp = () => {
             )
         )}
       </div>
-      <div className=" mt-10">
-        <Footer />
-      </div>
+      
     </div>
+    <div className=" mt-10">
+    <Footer />
+  </div>
+   </>
   );
 };
 

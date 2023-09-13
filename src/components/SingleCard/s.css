@@ -1,0 +1,133 @@
+/* styles.css (or styles.scss if using SCSS) */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  background-image: url("./images/HeadBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.containerS {
+  /* Add styles for the containerS class */
+  padding: 16px;
+  background-color: #f0f0f0;
+}
+
+.single-header {
+  /* Add styles for the single-header class */
+  background-color: #0074d9;
+  color: white;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.single-header button {
+  /* Add styles for the Back button */
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.single-header h2 {
+  /* Add styles for the header text */
+  margin: 0;
+}
+
+.boxS {
+  /* Add styles for the boxS class */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.upper-partSingle {
+  /* Add styles for the upper-partSingle class */
+  background-color: #0074d9;
+
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.citySingle {
+  /* Add styles for the citySingle class */
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.time {
+  /* Add styles for the time class */
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.upper-bottomSingle {
+  /* Add styles for the upper-bottomSingle class */
+  display: flex;
+  justify-content: space-between;
+}
+
+.upper-leftSingle {
+  /* Add styles for the upper-leftSingle class */
+  /* Add your styles here */
+}
+
+.ss {
+  /* Add styles for the ss class */
+  display: flex;
+}
+
+.upper-rightSingle {
+  /* Add styles for the upper-rightSingle class */
+  /* Add your styles here */
+}
+
+.iconS {
+  /* Add styles for the iconS class */
+  /* Add your styles here */
+}
+
+.descriptionS {
+  /* Add styles for the descriptionS class */
+  /* Add your styles here */
+}
+
+.temperatureSingle {
+  /* Add styles for the temperatureSingle class */
+  /* Add your styles here */
+}
+
+.small-text {
+  /* Add styles for the small-text class */
+  /* Add your styles here */
+}
+
+.lower-part {
+  /* Add styles for the lower-part class */
+  /* Add your styles here */
+}
+
+.lower-left {
+  /* Add styles for the lower-left class */
+  /* Add your styles here */
+}
+
+.lower-center {
+  /* Add styles for the lower-center class */
+  /* Add your styles here */
+}
+
+.lower-right {
+  /* Add styles for the lower-right class */
+  /* Add your styles here */
+}

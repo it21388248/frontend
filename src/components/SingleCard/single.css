@@ -1,3 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  background-image: url("./images/HeadBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .headerSingle {
   display: flex;
   align-items: center;
@@ -18,7 +32,9 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding-top: 600px;
+  height: max-content;
+  margin-top: 30px;
 }
 
 .boxS {
@@ -131,6 +147,6 @@
 /* For tablets and larger screens */
 @media screen and (min-width: px) {
   .boxS {
-    width: 50%; 
+    width: 50%;
   }
 }
