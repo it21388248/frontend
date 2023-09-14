@@ -22,8 +22,8 @@ const API_KEY =
 const WeatherApp = () => {
   // State variables
   const [weatherData, setWeatherData] = useState([]);
-  const [selectedCityIndex, setSelectedCityIndex] = useState(null);
-  const [error, setError] = useState(null);
+  const [selectedCityIndex, setSelectedCityIndex] = useState([]);
+  const [error, setError] = useState([]);
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const navigate = useNavigate();
 
@@ -39,6 +39,7 @@ const WeatherApp = () => {
         // Use cached data if it's less than 5 minutes old
         setWeatherData(cachedData.data.list);
       } else {
+        //makes a new API request
         const response = await fetch(apiURL);
 
         if (!response.ok) {
@@ -63,10 +64,13 @@ const WeatherApp = () => {
     }
   };
 
+  //Event Handling Functions
   // Function to handle a click on a city box
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
-    navigate("/aa", { state: { cityData, color: predefinedColors[index] } });
+    navigate("/single", {
+      state: { cityData, color: predefinedColors[index] },
+    });
   };
 
   // Function to handle click on the remove box (to hide a city box)
@@ -75,14 +79,9 @@ const WeatherApp = () => {
   };
 
   useEffect(() => {
-    // Remove duplicate API requests by checking cached data
-    const cachedData = JSON.parse(localStorage.getItem("weatherData"));
-    if (cachedData && Date.now() - cachedData.timestamp < REFRESH_INTERVAL) {
-      setWeatherData(cachedData.data.list);
-    } else {
-      fetchWeatherData();
-    }
-  }, [apiURL]);
+    // Fetch weather data when the component mounts
+    fetchWeatherData();
+  }, []);
 
   useEffect(() => {
     // Clear hidden boxes when the page is refreshed
@@ -178,7 +177,7 @@ const WeatherApp = () => {
                   <div className="lower-part">
                     <div className="lower-left ms-0">
                       <div>
-                        <p className="bold-text">Pressure:</p>{" "}
+                        <p className="bold-text">Pressure:</p>
                         {cityData.main.pressure}hPa
                       </div>
                       <div>
@@ -186,10 +185,10 @@ const WeatherApp = () => {
                         {cityData.main.humidity}%
                       </div>
                       <div>
-                        <p className="bold-text">Visibility:</p>{" "}
+                        <p className="bold-text">Visibility:</p>
                         {(cityData.visibility * METERS_TO_KILOMETERS).toFixed(
                           1
-                        )}{" "}
+                        )}
                         km
                       </div>
                     </div>

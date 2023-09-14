@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<WeatherCard />} />
-        <Route path="/aa" element={<SingleOne />} />
+        <Route path="/single" element={<SingleOne />} />
      
        
       </Routes>

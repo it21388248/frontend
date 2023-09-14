@@ -6,7 +6,7 @@ body {
   align-items: center;
   min-height: fit-content;
   background-color: #f0f0f0;
-  background-image: url("./images/HeadBg.png");
+  background-image: url("../../images/HeadBg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -25,7 +25,7 @@ body {
 }
 
 .header-icon {
-  background-image: url("./images/wIcon.png");
+  background-image: url("../../images/wIcon.png");
   background-repeat: no-repeat;
   background-size: 40px;
   width: 40px;
@@ -63,7 +63,7 @@ body {
 
 .upper-part {
   flex: 1;
-  background-image: url("./images/BoxBg.png");
+  background-image: url("../../images/BoxBg.png");
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
