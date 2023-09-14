@@ -79,9 +79,14 @@ const WeatherApp = () => {
   };
 
   useEffect(() => {
-    // Fetch weather data when the component mounts
-    fetchWeatherData();
-  }, []);
+    // Remove duplicate API requests by checking cached data
+    const cachedData = JSON.parse(localStorage.getItem("weatherData"));
+    if (cachedData && Date.now() - cachedData.timestamp < REFRESH_INTERVAL) {
+      setWeatherData(cachedData.data.list);
+    } else {
+      fetchWeatherData();
+    }
+  }, [apiURL]);
 
   useEffect(() => {
     // Clear hidden boxes when the page is refreshed
