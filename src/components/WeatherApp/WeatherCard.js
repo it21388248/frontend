@@ -4,13 +4,11 @@ import { TiLocationArrowOutline } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
 import { predefinedColors } from "../../constants";
 import "./styles.css";
-import API_URL from "../../APIHelper";
 import Data from "../../cities.json";
 import Footer from "../footer";
 import Header from "../Header";
 import {
   getWeatherIcon,
-  REFRESH_INTERVAL,
   METERS_TO_KILOMETERS,
   MILLISECONDS_TO_SECONDS,
 } from "../../constants";
@@ -23,48 +21,72 @@ const WeatherApp = () => {
   // State variables
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCityIndex, setSelectedCityIndex] = useState([]);
+  const [cityCodes, setCityCodes] = useState([]);
+
   const [error, setError] = useState([]);
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const navigate = useNavigate();
-
-  const apiURL = `${API_URL}/group?id=${Data.map((city) => city.CityCode).join(
-    ","
-  )}&units=metric&appid=${API_KEY}`;
-
-  const fetchWeatherData = async () => {
-    try {
-      const cachedData = JSON.parse(localStorage.getItem("weatherData"));
-      if (cachedData && Date.now() - cachedData.timestamp < REFRESH_INTERVAL) {
-        console.log(Date.now());
-        // Use cached data if it's less than 5 minutes old
-        setWeatherData(cachedData.data.list);
-      } else {
-        //makes a new API request
-        const response = await fetch(apiURL);
-
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch weather data. Status: ${response.status}`
-          );
+  
+  useEffect(() => {
+    // Step 1: Fetch City Codes (cities.json)
+    const fetchCityCodes = async () => {
+      try {
+        // Check if cached weather data exists and is not expired
+        const cachedWeatherData = JSON.parse(localStorage.getItem('cachedWeatherData'));
+        const cachedTimestamp = parseInt(localStorage.getItem('cachedTimestamp'));
+        const currentTime = new Date().getTime();
+  
+        if (cachedWeatherData && cachedTimestamp && currentTime - cachedTimestamp < 60000) {
+          // Use cached data if it's less than 5 minutes old
+          setWeatherData(cachedWeatherData);
+          return;
         }
-
-        const data = await response.json();
-        // Save data to localStorage with a timestamp
-        localStorage.setItem(
-          "weatherData",
-          JSON.stringify({ data, timestamp: Date.now() })
-        );
-        setWeatherData(data.list);
+  
+        const response = await fetch('cities.json'); // Relative path to cities.json
+        if (response.ok) {
+          const cities = await response.json();
+          const uniqueCityCodes = Array.from(
+            new Set(cities.map((city) => city.CityCode))
+          );
+          setCityCodes(uniqueCityCodes);
+  
+          // Step 2: Fetch Weather Data for Unique City Codes
+          const apiResponses = await Promise.all(
+            uniqueCityCodes.map(async (cityCode) => {
+              const weatherResponse = await fetch(
+                `http://api.openweathermap.org/data/2.5/weather?id=${cityCode}&units=metric&appid=${API_KEY}`
+              );
+              if (weatherResponse.ok) {
+                return await weatherResponse.json();
+              } else {
+                throw new Error(`Failed to fetch weather data for city ${cityCode}`);
+              }
+            })
+          );
+  
+          // Cache the weather data with a timestamp
+          const cacheData = {
+            data: apiResponses,
+            timestamp: currentTime,
+          };
+          localStorage.setItem('cachedWeatherData', JSON.stringify(cacheData));
+          
+          setWeatherData(apiResponses);
+        } else {
+          throw new Error('Failed to retrieve city codes.');
+        }
+      } catch (error) {
+        console.error('Error fetching city codes or weather data:', error);
+        setError('Failed to retrieve data. Please check your network.');
       }
-    } catch (error) {
-      console.error(error);
-      setError(
-        "An error occurred while fetching weather data. Please try again later."
-      );
-    }
-  };
+    };
+  
+    fetchCityCodes();
+  }, []);
+  
+  
 
-  //Event Handling Functions
+  // Event Handling Functions
   // Function to handle a click on a city box
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
@@ -77,16 +99,6 @@ const WeatherApp = () => {
   const handleRemoveBoxClick = (index) => {
     setHiddenBoxes((prevHiddenBoxes) => [...prevHiddenBoxes, index]);
   };
-
-  useEffect(() => {
-    // Remove duplicate API requests by checking cached data
-    const cachedData = JSON.parse(localStorage.getItem("weatherData"));
-    if (cachedData && Date.now() - cachedData.timestamp < REFRESH_INTERVAL) {
-      setWeatherData(cachedData.data.list);
-    } else {
-      fetchWeatherData();
-    }
-  }, [apiURL]);
 
   useEffect(() => {
     // Clear hidden boxes when the page is refreshed
@@ -109,128 +121,129 @@ const WeatherApp = () => {
         <div className="AddCity flex justify-center pb-5">
           <input
             type="text"
-            className=" h-8 bg-gray-800 rounded-l-sm p-2 text-white"
+            className="h-8 bg-gray-800 rounded-l-sm p-2 text-white"
             id="myInput"
             placeholder="Enter a city"
           />
           <input
             type="button"
-            className=" bg-purple-700 b-2 w-24 h-8 rounded-md text-white font-bold"
+            className="bg-purple-700 b-2 w-24 h-8 rounded-md text-white font-bold"
             value="Add City"
           />
         </div>
-
-        <div className="box-container  ">
-          {weatherData.map(
-            (cityData, index) =>
-              // Check if the box should be hidden
-              !hiddenBoxes.includes(index) && (
-                <div
-                  className="box "
-                  key={index}
-                  onClick={() => handleCityBoxClick(index, cityData)}
-                >
-                  {/* Upper Part */}
-                  <div className="weather-box ">
-                    <div
-                      className="upper-part"
-                      style={{ backgroundColor: predefinedColors[index] }}
-                    >
-                      <div className="cross">
-                        <RxCross2
-                          className="w-5 h-5"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleRemoveBoxClick(index);
-                          }}
+  
+        <div className="box-container">
+          {weatherData.map((cityData,index) => (
+            // Check if the box should be hidden
+            !hiddenBoxes.includes(cityData.id) && (
+              <div
+                className="box"
+                key={cityData.id} // Use a unique identifier as the key
+                style={{ backgroundColor: predefinedColors[index % predefinedColors.length] }}
+                onClick={() => handleCityBoxClick(cityData.id, cityData)}
+              >
+                {/* Upper Part */}
+                <div className="weather-box">
+                  <div
+                    className="upper-part"
+                    
+                    
+                     // Use the unique identifier as index
+                  >
+                    <div className="cross">
+                      <RxCross2
+                        className="w-5 h-5"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveBoxClick(cityData.id); // Use the unique identifier as index
+                        }}
+                      />
+                    </div>
+                    <div className="upper-left">
+                    <div className="city">
+              {cityData.name}, {cityData.sys.country}
+            </div>
+                      <div className="time mt-0 text-sm">
+                        {new Date(cityData.dt * 1000).toLocaleString([], {
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </div>
+                      <div className="description ml-2">
+                        <FontAwesomeIcon
+                          className="weather-iconM mr-2 mt-3"
+                          icon={getWeatherIcon(cityData.weather[0].icon)}
                         />
-                      </div>
-                      <div className="upper-left">
-                        <div className="city">
-                          {Data[index].CityName}, {cityData.sys.country}
-                        </div>
-                        <div className="time mt-0 text-sm">
-                          {new Date(cityData.dt * 1000).toLocaleString([], {
-                            month: "short",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </div>
-                        <div className="description ml-2">
-                          <FontAwesomeIcon
-                            className="weather-iconM mr-2 mt-3"
-                            icon={getWeatherIcon(cityData.weather[0].icon)}
-                          />
-                          {cityData.weather[0].description}
-                        </div>
-                      </div>
-                      <div className="upper-right">
-                        <div className="temperature">
-                          {Math.round(cityData.main.temp)}°C
-                        </div>
-                        <div>
-                          Temp Min: {Math.round(cityData.main.temp_min)}°C
-                        </div>
-                        <div>
-                          Temp Max: {Math.round(cityData.main.temp_max)}°C
-                        </div>
+                        {cityData.weather[0].description}
                       </div>
                     </div>
-                  </div>
-                  {/* Lower Part */}
-                  <div className="lower-part">
-                    <div className="lower-left ms-0">
-                      <div>
-                        <p className="bold-text">Pressure:</p>
-                        {cityData.main.pressure}hPa
+                    <div className="upper-right">
+                      <div className="temperature">
+                        {Math.round(cityData.main.temp)}°C
                       </div>
                       <div>
-                        <p className="bold-text ms-0">Humidity:</p>
-                        {cityData.main.humidity}%
+                        Temp Min: {Math.round(cityData.main.temp_min)}°C
                       </div>
                       <div>
-                        <p className="bold-text">Visibility:</p>
-                        {(cityData.visibility * METERS_TO_KILOMETERS).toFixed(
-                          1
-                        )}
-                        km
-                      </div>
-                    </div>
-
-                    <div className="lower-center">
-                      <div>
-                        <TiLocationArrowOutline className="w-8 h-8" />
-                      </div>
-                      <div>
-                        {cityData.wind.speed}m/s {cityData.wind.deg} Degree
-                      </div>
-                    </div>
-                    <div className="lower-right">
-                      <div>
-                        <p className="bold-text">Sunrise: </p>
-                        {new Date(
-                          cityData.sys.sunrise * MILLISECONDS_TO_SECONDS
-                        ).toLocaleTimeString()}
-                      </div>
-                      <div>
-                        <p className="bold-text">Sunset: </p>
-                        {new Date(
-                          cityData.sys.sunset * MILLISECONDS_TO_SECONDS
-                        ).toLocaleTimeString()}
+                        Temp Max: {Math.round(cityData.main.temp_max)}°C
                       </div>
                     </div>
                   </div>
                 </div>
-              )
-          )}
+                {/* Lower Part */}
+                <div className="lower-part">
+                  <div className="lower-left ms-0">
+                    <div>
+                      <p className="bold-text">Pressure:</p>
+                      {cityData.main.pressure}hPa
+                    </div>
+                    <div>
+                      <p className="bold-text ms-0">Humidity:</p>
+                      {cityData.main.humidity}%
+                    </div>
+                    <div>
+                      <p className="bold-text">Visibility:</p>
+                      {(cityData.visibility * METERS_TO_KILOMETERS).toFixed(1)}
+                      km
+                    </div>
+                  </div>
+  
+                  <div className="lower-center">
+                    <div>
+                      <TiLocationArrowOutline className="w-8 h-8" />
+                    </div>
+                    <div>
+                      {cityData.wind.speed}m/s {cityData.wind.deg} Degree
+                    </div>
+                  </div>
+                  <div className="lower-right">
+                    <div>
+                      <p className="bold-text">Sunrise: </p>
+                      {new Date(
+                        cityData.sys.sunrise * MILLISECONDS_TO_SECONDS
+                      ).toLocaleTimeString()}
+                    </div>
+                    <div>
+                      <p className="bold-text">Sunset: </p>
+                      {new Date(
+                        cityData.sys.sunset * MILLISECONDS_TO_SECONDS
+                      ).toLocaleTimeString()}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          ))}
         </div>
       </div>
-      <div className=" mt-10">
+      <div className="mt-10">
         <Footer />
       </div>
     </>
   );
+  
 };
 
-export default WeatherApp;
+export default WeatherApp;

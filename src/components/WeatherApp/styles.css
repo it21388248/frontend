@@ -1,10 +1,14 @@
-body {
+/* Reset default styles */
+body, h1, h2, h3, p, ul, li {
   margin: 0;
   padding: 0;
+}
+
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: fit-content;
+  min-height: 100vh; /* Use viewport height for full page height */
   background-color: #f0f0f0;
   background-image: url("../../images/HeadBg.png");
   background-repeat: no-repeat;
@@ -12,10 +16,7 @@ body {
   background-attachment: fixed;
 }
 
-.weather-box {
-  position: relative;
-}
-
+/* Header styles */
 .header {
   display: flex;
   align-items: center;
@@ -38,6 +39,7 @@ body {
   color: white;
 }
 
+/* Box Container styles */
 .box-container {
   display: flex;
   flex-wrap: wrap;
@@ -50,17 +52,18 @@ body {
   height: max-content;
 }
 
+/* Box styles */
 .box {
-  width: calc(50% - 20px);
-  width: 350px;
-  height: 250px;
-
+  width: calc(50% - 20px); /* Responsive width for larger screens */
+  max-width: 480px; /* Maximum width for smaller screens */
+  height: auto; /* Allow boxes to adapt to content height */
   display: flex;
   flex-direction: column;
   background-position: top;
   border-radius: 10px;
 }
 
+/* Upper Part styles */
 .upper-part {
   flex: 1;
   background-image: url("../../images/BoxBg.png");
@@ -86,7 +89,6 @@ body {
 
 .city {
   font-size: 1.2rem;
-
   color: #f0f0f0;
   font-weight: bold;
 }
@@ -98,6 +100,7 @@ body {
   color: #f0f0f0;
 }
 
+/* Lower Part styles */
 .lower-part {
   display: flex;
   flex-direction: row;
@@ -170,6 +173,7 @@ body {
   margin: 0;
 }
 
+/* Footer styles */
 .footer {
   display: flex;
   justify-content: center;
@@ -178,7 +182,7 @@ body {
   color: rgb(141, 138, 138);
 }
 
-/* media quiries */
+/* Media queries */
 @media (max-width: 1080px) {
   .header {
     margin-top: 10px;
@@ -197,19 +201,14 @@ body {
     max-width: 480px;
   }
 
-  .upper-part {
-    border-radius: 10px 10px 0 0;
+  .city {
+    font-size: 1rem;
   }
 
-  .lower-part {
-    border-radius: 0 0 10px 10px;
+  .temperature {
+    font-size: 1.5rem;
   }
+ 
 
-  .lower-left,
-  .lower-center,
-  .lower-right {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
+  /* Other responsive adjustments as needed */
 }
