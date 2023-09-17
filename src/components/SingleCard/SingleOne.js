@@ -255,9 +255,7 @@ const SingleOne = () => {
             </div>
           </div>
 
-          <div className="footer w-full mt-8">
-            <Footer />
-          </div>
+       
         </div>
       </div>
     </>

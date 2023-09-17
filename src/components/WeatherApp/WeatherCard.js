@@ -16,9 +16,6 @@ import {
 } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const API_KEY =
-  process.env.WEATHER_APP_API_KEY || "e5464675f9d481b04c981cb851d15413";
-
 const WeatherApp = () => {
   // State variables
   const [weatherData, setWeatherData] = useState([]);
@@ -57,18 +54,17 @@ const WeatherApp = () => {
           localStorage.getItem("cachedTimestamp")
         );
         const currentTime = new Date().getTime();
-  // check cached data is available or not in 5 min time period
+        // check cached data is available or not in 5 min time period
         if (
           cachedWeatherData &&
           cachedTimestamp &&
           currentTime - cachedTimestamp < REFRESH_INTERVAL
         ) {
-        
           setWeatherData(cachedWeatherData);
           return;
         }
 
-        const response = await fetch("cities.json"); 
+        const response = await fetch("cities.json");
         if (response.ok) {
           const cities = await response.json();
           const uniqueCityCodes = Array.from(
@@ -82,7 +78,7 @@ const WeatherApp = () => {
               const weatherResponse = await fetch(`${API_URL}&id=${cityCode}`);
               if (weatherResponse.ok) {
                 const weatherData = await weatherResponse.json();
-                
+
                 // Set the backgroundColor property using predefinedColors
                 weatherData.backgroundColor =
                   predefinedColors[index % predefinedColors.length];
@@ -124,12 +120,7 @@ const WeatherApp = () => {
 
   // Function to handle click on the remove box (to hide a city box)
   const handleRemoveBoxClick = (index) => {
-    setHiddenBoxes((prevHiddenBoxes) => {
-      const updatedHiddenBoxes = [...prevHiddenBoxes, index];
-      // Store the updated hiddenBoxes state in local storage
-      localStorage.setItem("hiddenBoxes", JSON.stringify(updatedHiddenBoxes));
-      return updatedHiddenBoxes;
-    });
+    setHiddenBoxes((prevHiddenBoxes) => [...prevHiddenBoxes, index]);
   };
 
   useEffect(() => {
@@ -139,7 +130,7 @@ const WeatherApp = () => {
     if (storedHiddenBoxes) {
       setHiddenBoxes(storedHiddenBoxes);
     } else {
-    // If there are no hiddenBoxes stored, initialize as an empty array
+      // If there are no hiddenBoxes stored, initialize as an empty array
       setHiddenBoxes([]);
     }
   }, []);
@@ -186,7 +177,6 @@ const WeatherApp = () => {
                   key={cityData.id}
                   style={{ backgroundColor: cityData.backgroundColor }}
                   onClick={() => handleCityBoxClick(index, cityData)}
-                  // Pass the index, not cityData.id
                 >
                   {/* Upper Part */}
                   <div className="weather-box">

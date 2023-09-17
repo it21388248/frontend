@@ -210,5 +210,9 @@ body {
   }
  
 
-  /* Other responsive adjustments as needed */
+  .footer {
+    font-size: 0.75rem; 
+    padding: 10px; 
+  }
+  
 }
