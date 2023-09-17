@@ -4,7 +4,8 @@ import {
   faSmog,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
-export const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+export const REFRESH_INTERVAL = 5 * 60 * 1000
+//5 * 60 * 1000; // 5 minutes in milliseconds
 
 // Define a constant for the meters to kilometers conversion factor
 export const METERS_TO_KILOMETERS = 0.001;
@@ -30,18 +31,12 @@ export const weatherIcons = {
   "01n": faSun,
   "02d": faCloud,
   "02n": faCloud,
-  "03d": faCloud,
-  "03n": faCloud,
+  "03d": faCloud, 
+  "03n": faCloud, 
   "04d": faCloud,
   "04n": faCloud,
-
   "50d": faWind,
   "50n": faWind,
-  // Add icons for scattered clouds and few clouds
-  "03d": faCloud, // Scattered clouds
-  "03n": faCloud, // Scattered clouds
-  "02d": faCloud, // Few clouds
-  "02n": faCloud, // Few clouds
 };
 
 export const defaultWeatherIcon = faSmog;

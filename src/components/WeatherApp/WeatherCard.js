@@ -21,25 +21,11 @@ const WeatherApp = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedCityIndex, setSelectedCityIndex] = useState([]);
   const [cityCodes, setCityCodes] = useState([]);
-
   const [error, setError] = useState([]);
   const [hiddenBoxes, setHiddenBoxes] = useState([]);
   const [colorIndex, setColorIndex] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Restarts color index when the weather data changes
-    setColorIndex(0);
-  }, [weatherData]);
-
-  // Function to get the next color from the predefined colors
-  const getNextColor = () => {
-    const color = predefinedColors[colorIndex];
-    setColorIndex((prevIndex) =>
-      prevIndex === predefinedColors.length - 1 ? 0 : prevIndex + 1
-    );
-    return color;
-  };
 
   useEffect(() => {
     // Step 1: extract city codes from cities.json file
@@ -111,6 +97,7 @@ const WeatherApp = () => {
     fetchCityCodes();
   }, []);
 
+  // handle clicks on city boxes
   const handleCityBoxClick = (index, cityData) => {
     setSelectedCityIndex(index);
     navigate("/single", {
@@ -135,10 +122,7 @@ const WeatherApp = () => {
     }
   }, []);
 
-  // Clear hiddenBoxes when the component mounts (page refresh)
-  useEffect(() => {
-    setHiddenBoxes([]);
-  }, []);
+
 
   // Loading state if data is not yet available
   if (Data.length === 0 || weatherData.length === 0) {
@@ -278,4 +262,4 @@ const WeatherApp = () => {
   );
 };
 
-export default WeatherApp;
+export default WeatherApp;
